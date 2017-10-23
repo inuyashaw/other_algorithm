@@ -1,0 +1,34 @@
+//用滚动数组实现lcs（从二维数组求lcs的代码中可看出，一个坐标的值仅依赖于横纵减一的两行）
+//该方法只能求出lcs的长度，求不了具体substring
+int LongestCommentSubsequence(const char* str1, const char* str2)
+{
+	int str1Length = (int)strlen(str1);
+	int str2Length = (int)strlen(str2);
+	const char* p1 = str1 - 1;
+	const char* p2 = str2 - 1;
+	//vector<vector<int> > vec(2, vector<int>(str2Length));
+  vec[2][str2Length + 1];
+	memset(vec, 0 ,sizeof(vec));
+	int i, j;
+	for(i = 1; i <= str1Length; i++)
+	{
+			for(j = 1;j <= str2Length; j++)
+			{
+					if(p1[i] == p2[j])
+						vec[i%2][j] = vec[(i-1)%2][j-1] + 1;
+					else
+						vec[i%2][j] = max(vec[(i-1)%2][j],vec[i%2][j-1]);
+			}
+	}
+	return vec[str1Length%2][str2Length];
+}
+
+int main(int argc, char* argv[])
+{
+	const char* str1 = "jslfsdmgldsm";
+	const char* str2 = "kldjsflsdsdkfklsd";
+	string str;
+	int result = LongestCommentSubsequence(str1, str2);
+	std::cout<< "Longest Comment Subsequence:" << result <<std::endl;
+	return 0;
+}
