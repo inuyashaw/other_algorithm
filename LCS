@@ -1,0 +1,52 @@
+//用二维数组的方法寻找2字符串的最长公共子序列
+void lcs(const char* str1, const char* str2, string &str)
+{
+	int str1Length = (int)strlen(str1);
+	int str2Length = (int)strlen(str2);
+	const char* p1 = str1-1;
+	const char* p2 = str2-1;
+	vector<vector<int> > vec(str1Length+1, vector<int>(str2Length+1));
+	int i, j;
+	for(i = 0; i <= str1Length; i++)
+		vec[i][0] = 0;
+	for(i = 0; i <= str2Length; i++)
+		vec[0][i] = 0;
+	for(i = 1; i <= str1Length; i++)
+		for(j = 1; j <= str2Length; j++)
+		{
+			if( p1[i] == p2[j])
+				vec[i][j] = vec[i-1][j-1] + 1;
+			else
+				vec[i][j] = max(vec[i-1][j],vec[i][j-1]);
+		}
+	i = str1Length;
+	j = str2Length;
+	while(i!=0 && j!=0)
+	{
+		if(p1[i] == p2[j])
+		{
+			str.push_back[p1[i]);
+			i--;
+			j--;
+		}
+		else
+		{
+			if(vec[i][j-1] > vec[i-1][j])
+				j--;
+			else
+				i--;
+		}
+	}
+	reverse(str.begin(),str.end());
+}
+
+int main(int argc, char* argv[])
+{
+	const char* str1 = "ASANFSLS";
+	const char* str2 = "SDSKLMFS";
+	string str;
+	lcs(str1, str2, str);
+	std::cout << str << std::endl;
+	
+	return 0;
+}
