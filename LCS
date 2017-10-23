@@ -1,4 +1,11 @@
 //用二维数组的方法寻找2字符串的最长公共子序列
+#include<iostream>
+#include<vector>
+#include<string.h>
+#include<algorithm>
+
+using namespace std;
+
 void lcs(const char* str1, const char* str2, string &str)
 {
 	int str1Length = (int)strlen(str1);
@@ -14,7 +21,7 @@ void lcs(const char* str1, const char* str2, string &str)
 	for(i = 1; i <= str1Length; i++)
 		for(j = 1; j <= str2Length; j++)
 		{
-			if( p1[i] == p2[j])
+			if(p1[i] == p2[j])
 				vec[i][j] = vec[i-1][j-1] + 1;
 			else
 				vec[i][j] = max(vec[i-1][j],vec[i][j-1]);
