@@ -1,0 +1,72 @@
+#include<iostream>
+#include<vector>
+#include<string.h>
+#include<algorithm>
+
+using namespace std;
+
+int lis(const int* array, int size, int* pre, int& maxIndex)
+{
+	int* longest = new int[size];
+	int i, j;
+	int maxLength = 1;
+	for(i = 0; i < size; i++)
+	{
+		longest[i] = 1;
+		pre[i] = -1;
+	}
+	for(i = 1; i < size; i++)
+	{
+		for(j = 0; j < i; j++)
+		{
+			if(array[i] >= array[j])
+			{
+				if(longest[i] < longest[j] + 1)
+				{
+					longest[i] = longest[j] + 1;
+					pre[i] = j;
+				}
+			}
+		}
+		if(maxLength < longest[i])
+		{
+			maxLength = longest[i];
+			maxIndex = i;
+		}
+	}
+	delete [] longest;
+	return maxLength;
+}
+
+void findMaxString(int* array, int* pre, vector<int>& vec, int& maxIndex)
+{
+	while(maxIndex >= 0)
+	{
+		vec.push_back(array[maxIndex]);
+		maxIndex = pre[maxIndex];
+	}
+	reverse(vec.begin(),vec.end());
+}
+
+void print(vector<int>& vec)
+{
+	int i;
+	for(i = 0; i < vec.size(); i++)
+	{
+		cout << vec[i] << ' ';
+	}
+}
+
+int main(int argc, char* arv[])
+{
+	int array[] = {1,0,5,3,1,2,8,9,2,7};
+	int size = sizeof(array) / sizeof(int);
+	int* pre = new int[size];
+	int maxIndex;
+	int maxLength = lis(array, size, pre, maxIndex);
+	vector<int> vec;
+	findMaxString(array, pre, vec, maxIndex);
+	print(vec);
+	delete [] pre;
+	return 0;
+}
