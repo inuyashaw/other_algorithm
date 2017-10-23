@@ -1,0 +1,30 @@
+//字符串的循环左移，时间复杂度O(n),空间复杂度O(1)
+//(x'y')' == yx
+void ReverseString(char* str, int from, int to)
+{
+	char temp;
+	while(from < to)
+	{
+		temp = str[from];
+		str[from++] = str[to];
+		str[to--] = temp;
+	}
+}
+
+void LeftRotateString(char* str, int n, int m)
+{
+//Attention:循环左移n+k位和k位的效果相同
+	m %= n;
+	ReverseString(str, 0, m-1);
+	ReverseString(str, m, n-1);
+	ReverseString(str, 0, n-1);
+}
+
+int main(int argc, char argv[])
+{
+	char *str = "jksndfdkfs";
+	int length = strlen(str);
+	LeftRotateString(str, length, 3);
+	
+	return 0;
+}
