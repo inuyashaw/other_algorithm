@@ -1,3 +1,5 @@
+//lis可以用lcs来帮助求解
+//改代码为lis的动态规划的解法，时间复杂度为O(n^2)
 #include<iostream>
 #include<vector>
 #include<string.h>
