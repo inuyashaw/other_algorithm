@@ -1,0 +1,38 @@
+//去除重复字符的递归算法（字符串中有重复）
+//带重复字符的全排列就是每个字符分别与它后面不是第二次出现（重复出现）的字符交换
+//即：第i个字符（前）与第j个字符（后）交换时，要求[i,j)中没有与第j个字符相等的数。
+//空间换时间，如果是单个字符，可以用mark[256],如果是整数，可以用mark[max-min+1],
+//如果是浮点数或其他结构，考虑hash，其实如果整数间变化太大，也应考虑用hash
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+void permutation(char* str, int size, int n)
+{
+	if(n == size - 1)
+	{
+		cout << str << endl;
+		return;
+	}
+	int dup[256]={0};
+	int i;
+	for(i = n; i < size; i++)
+	{
+		if(dup[str[i]] == 1)
+			continue;
+		dup[str[i]] = 1;
+		swap(str[n], str[i]);
+		permutation(str, size, n+1);
+		swap(str[n], str[i]);
+	}
+}
+
+int main(int argc, char* argv[])
+{
+	char str[] = "1223";
+	int size = strlen(str);
+	permutation(str, size, 0);
+	
+	return 0;
+}
