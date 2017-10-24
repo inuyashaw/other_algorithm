@@ -1,0 +1,40 @@
+//字符串的全排列
+//递归算法，保证递归钱字符串的顺序不变
+
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+void print(int* array, int size)
+{
+	int i;
+	for(i = 0; i < size ; i++)
+		cout << array[i];
+	cout << endl;
+}
+
+void permutation(int* array, int size, int n)
+{
+	if(n == size - 1)
+	{
+		print(array, size);
+		return;
+	}
+	int i;
+	for(i = n; i < size; i++)
+	{
+		swap(array[i], array[n]);
+		permutation(array, size , n + 1);
+		swap(array[i], array[n]);
+	}
+}
+
+int main(int argc, char* argv[])
+{
+	int array[] = {1,2,3,4,5};
+	int size = sizeof(array) / sizeof(int);
+	permutation(array, size, 0);
+	
+	return 0;
+}
