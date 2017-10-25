@@ -1,0 +1,55 @@
+//全排列的非递归算法
+//从字典序最小的排列到字典序最大的排列
+//从当前排列生成刚好比它字典序大的下一个排列
+#include<iostream>
+
+using namespace std;
+
+void Print(int* array, int size)
+{
+	int i;
+	for(i = 0; i < size; i++)
+		cout<<array[i]<<' ';
+	cout<<endl;
+}
+
+void reverse(int* n, int* m)
+{
+	int tmp;
+	while(n < m)
+	{
+		tmp = *n;
+		*n = *m;
+		*m = tmp;
+		n++;
+		m--;
+	}
+}
+
+bool GetNextPermutation(int* array, int size)
+{
+	int i = size - 2;
+	while(i >= 0 && array[i] >= array[i + 1])
+		i--;
+	if(i < 0)
+		return false;
+	int j = size - 1;
+	while(array[i] >= array[j])
+		j--;
+	swap(array[i], array[j]);
+	reverse(array + i + 1, array + size - 1);
+	return true;
+}
+
+int main(int argc, char* argv[])
+{
+	int array[] = {1,2,2,4,5};
+	int size = sizeof(array) / sizeof(int);
+	Print(array, size);
+	while(GetNextPermutation(array, size))
+		Print(array, size);
+		
+	return 0;
+}
+
+
