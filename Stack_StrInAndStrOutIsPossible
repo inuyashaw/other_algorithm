@@ -1,0 +1,37 @@
+//有进栈和出栈的两个字符串，看是否可能
+#include<iostream>
+#include<stack>
+using namespace std;
+
+bool IsPossible(char*In,char*Out)
+{
+	stack<char> s;
+	while(*Out)
+	{
+		if(!s.empty() && s.top()==*Out)
+		{
+			s.pop();
+			Out++;
+		}
+		else
+		{
+			if(*In==0)
+				return false;
+			s.push(*In);
+			In++;
+		}
+	}
+	return true;
+}
+
+int main(int argc,char* argv[])
+{
+	char strIn[] = "ABCDEFG";
+	char strOut[] = "ABEDFGC";
+	std::cout << strIn << std::endl;
+	std::cout << strOut << std::endl;
+	bool answer=IsPossible(strIn,strOut);
+	std::cout << answer <<std::endl;
+	
+	return 0;
+}
