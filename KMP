@@ -1,0 +1,58 @@
+/*
+kmp算法：充分利用目标串中部分字符串的重复性，即使不存在重复字段，在比较时，实现最大的移动量
+str是文本串，ptr是目标串，
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+//计算next数组
+void cal_next(char* str, int* next, int len)
+{
+    next[0] = -1;//next[0]初始化为-1，-1表示不存在相同的最大前缀和最大后缀
+    int k = -1;
+    int q;
+    for(q = 1; q <= len - 1; q++)
+    {
+        //如果下一个不同，那么k就变成next[k]，注意next[k]是小于k的，无论k取任何值。
+        while(k > -1 && str[k + 1] != str[q])
+            //往前回溯
+            k = next[k];
+        if(str[k+1] == str[q])//如果相同，k++
+            k = k + 1;
+        //计算出的k为，相同的最长前缀和最长后缀的长度
+        next[q] = k;
+    }
+}
+
+
+int kmp(char* str, int slen, char* ptr, int plen)
+{
+    int* next = (int*)malloc(sizeof(int)*plen);
+    cal_next(ptr, next, plen);
+    int k = -1;
+    int q;
+    for(q = 0; q < slen; q++)
+    {
+        while(k > -1 && ptr[k + 1] != str[q])
+            k = next[k];
+        if(ptr[k + 1] == str[q])
+            k = k + 1;
+        if(k == plen -1)
+            return q - plen + 1;
+    }
+    return -1;
+}
+
+int main(int argc, char* argv[])
+{
+    char buf[100] ={0};
+    printf("please input str:\n");
+    gets(buf);
+    char ptr[20] = {0};
+    printf("please input ptr:\n");    
+    gets(ptr);
+    int i = kmp(buf, strlen(buf), ptr, strlen(ptr));
+    printf("pos is %d\n",i);
+    
+}
