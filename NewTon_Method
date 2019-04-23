@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+//牛顿迭代法计算平方根
+double NewTon(double n)
+{
+    if(n < 0)
+        return -1;
+    double x = n/2;
+    int count = 1;
+    while( (fabs(x * x) - n) >= 0.00000001 && count < 10)
+    {
+        printf("count:%d x:%lf\n", count, x);
+        x = (x + n/x)/2;
+    }
+    return x;
+}
+
+int main(void)
+{
+    double num = 0.9876;
+    double res = NewTon(num);
+    printf("%lf", res);
+}
