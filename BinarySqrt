@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+//二分法求平方根
+double func(double n)
+{
+    double low = 0.0;
+    //设置上限为n和1之中的最大数，即：如果n>=1，那么上限为n；如果n<1，那么上限为1
+    double high = n > 1 ? n : 1;
+    double mid = low + ((high - low) / 2);
+    int count = 1;
+    while( fabs(mid * mid - n) >= 1e-6 && count < 100)
+    {
+        if(mid * mid > n)
+            high = mid;
+        else if(mid * mid < n)
+            low = mid;
+        mid = low + ((high - low) / 2);
+    }
+    return mid;
+}
+
+int main(void)
+{
+    double num = 0.9876;
+    double res = func(num);
+    printf("%lf", res);
+}
