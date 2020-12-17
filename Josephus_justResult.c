@@ -7,7 +7,7 @@
 int main(void)
 {
     int s = 0, n = 13, m = 3, i;
-    for(i = 2; i < n; i++)
+    for(i = 2; i <= n; i++)
     {
         s = (s + m) % i;
     }
